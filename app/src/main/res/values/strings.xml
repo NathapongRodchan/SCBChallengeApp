@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">ScbChallengeApp</string>
+    <string name="mobile_phone">Mobile Phone</string>
+    <string name="list_fragment">List Fragment</string>
+    <string name="favorite_fragment">Favorite Fragment</string>
+    <string name="tab_mobile">MOBILE LIST</string>
+    <string name="tab_favorite">FAVORITE LIST</string>
+    <string name="notice">Notice</string>
+    <string name="connection_error">Sorry, Connection failed. Please try again.</string>
+    <string name="ok">OK</string>
+    <string name="please_wait">Please wait...</string>
+    <string name="price">Price: $</string>
+    <string name="rating">Rating: ""</string>
+
+</resources>
