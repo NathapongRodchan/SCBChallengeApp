@@ -4,14 +4,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 import io.paperdb.Paper;
+import project.nathapong.scbchallengeapp.MobileLists.Model.MobileListsModel;
 
 public class Sessions {
 
-    // All Favorite ID
-    public static void saveFavoriteLists(List<Integer> allFavoriteLists){
-        Paper.book().write("FAVORITE_LISTS", allFavoriteLists);
+    // All Favorites
+    public static void saveFavoriteLists(List<MobileListsModel> allFavoriteLists){
+        Paper.book().write(Constants.FAVORITE_KEY, allFavoriteLists);
     }
-    public static List<Integer> readFavoriteLists(){
-        return Paper.book().read("FAVORITE_LISTS", new ArrayList<Integer>());
+    public static List<MobileListsModel> readFavoriteLists(){
+        return Paper.book().read(Constants.FAVORITE_KEY, new ArrayList<MobileListsModel>());
     }
+
 }

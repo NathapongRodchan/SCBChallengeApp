@@ -1,4 +1,4 @@
-package project.nathapong.scbchallengeapp.MobileList.Model;
+package project.nathapong.scbchallengeapp.MobileLists.Model;
 
 import android.os.Parcel;
 import android.os.Parcelable;

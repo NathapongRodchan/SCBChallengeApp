@@ -11,5 +11,8 @@
     <string name="please_wait">Please wait...</string>
     <string name="price">Price: $</string>
     <string name="rating">Rating: ""</string>
+    <string name="low_to_high">Price low to high</string>
+    <string name="high_to_low">Price high to low</string>
+    <string name="rating_high_to_low">Rating 5 - 1</string>
 
 </resources>

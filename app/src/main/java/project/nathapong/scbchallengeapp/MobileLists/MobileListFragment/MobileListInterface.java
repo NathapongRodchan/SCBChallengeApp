@@ -1,8 +1,8 @@
-package project.nathapong.scbchallengeapp.MobileList.MobileListFragment;
+package project.nathapong.scbchallengeapp.MobileLists.MobileListFragment;
 
 import java.util.List;
 
-import project.nathapong.scbchallengeapp.MobileList.Model.MobileListsModel;
+import project.nathapong.scbchallengeapp.MobileLists.Model.MobileListsModel;
 
 public interface MobileListInterface {
 

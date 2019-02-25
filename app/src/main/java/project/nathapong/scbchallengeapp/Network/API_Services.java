@@ -2,7 +2,7 @@ package project.nathapong.scbchallengeapp.Network;
 
 import java.util.List;
 
-import project.nathapong.scbchallengeapp.MobileList.Model.MobileListsModel;
+import project.nathapong.scbchallengeapp.MobileLists.Model.MobileListsModel;
 import retrofit2.Call;
 import retrofit2.http.GET;
 

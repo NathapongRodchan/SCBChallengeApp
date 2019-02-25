@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:padding="@dimen/radio_padding">
+
+    <RadioGroup
+        android:id="@+id/rgOptions"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/radio_margin">
+
+        <RadioButton
+            android:id="@+id/rbLowToHigh"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="@dimen/radio_padding"
+            android:text="@string/low_to_high"/>
+
+        <RadioButton
+            android:id="@+id/rbHighToLow"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="@dimen/radio_padding"
+            android:layout_marginTop="@dimen/radio_margin"
+            android:text="@string/high_to_low"/>
+
+        <RadioButton
+            android:id="@+id/rbRating"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="@dimen/radio_padding"
+            android:layout_marginTop="@dimen/radio_margin"
+            android:text="@string/rating_high_to_low"/>
+
+    </RadioGroup>
+
+</LinearLayout>
