@@ -3,6 +3,7 @@ package project.nathapong.scbchallengeapp.MobileLists.Adapter;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +16,8 @@ import java.util.List;
 
 import project.nathapong.scbchallengeapp.MobileLists.Model.MobileListsModel;
 import project.nathapong.scbchallengeapp.R;
+import project.nathapong.scbchallengeapp.Utilities.Constants;
+import project.nathapong.scbchallengeapp.Utilities.Public_Variables;
 import project.nathapong.scbchallengeapp.Utilities.Sessions;
 
 public class MobileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
@@ -33,7 +36,7 @@ public class MobileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         context = viewGroup.getContext();
         View view = LayoutInflater.from(context).inflate(R.layout.mobile_lists_adapter, viewGroup, false);
-        return new MobileListHolder(view, adapterListener);
+        return new MobileListHolder(view, adapterListener, allMobiles, context);
     }
 
     @Override
@@ -66,7 +69,23 @@ public class MobileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                 return Integer.compare(list1.getId(),list2.getId());
             }
         });
-        Sessions.saveFavoriteLists(allFavorites);
+        if (TextUtils.isEmpty(Public_Variables.optionName)) {
+            Sessions.saveFavoriteLists(allFavorites);
+        }else {
+            Collections.sort(allFavorites, new Comparator<MobileListsModel>() {
+                @Override
+                public int compare(MobileListsModel list1, MobileListsModel list2) {
+                    if (Public_Variables.optionName.equals(Constants.LOW_TO_HIGH)){
+                        return Double.compare(list1.getPrice(),list2.getPrice());
+                    }else if (Public_Variables.optionName.equals(Constants.HIGH_TO_LOW)){
+                        return Double.compare(list2.getPrice(),list1.getPrice());
+                    }else {
+                        return Double.compare(list2.getRating(),list1.getRating());
+                    }
+                }
+            });
+            Sessions.saveFavoriteLists(allFavorites);
+        }
         allMobiles.get(position).setFavorite(true);
         notifyItemChanged(position);
     }

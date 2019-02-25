@@ -1,7 +1,7 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Base.Theme.AppCompat.Light.DarkActionBar">
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
@@ -13,15 +13,15 @@
         <item name="android:layout_height">wrap_content</item>
         <item name="android:gravity">center</item>
         <item name="shape">oval</item>
-        <item name="padding_left">7dp</item>
-        <item name="padding_right">7dp</item>
+        <item name="padding_left">@dimen/indicator_padding</item>
+        <item name="padding_right">@dimen/indicator_padding</item>
 
-        <item name="selected_drawable">@drawable/ic_indicator_selected</item>
-        <item name="unselected_drawable">@drawable/ic_indicator</item>
-        <item name="selected_width">11dp</item>
-        <item name="selected_height">11dp</item>
-        <item name="unselected_width">11dp</item>
-        <item name="unselected_height">11dp</item>
+        <item name="selected_color">@color/selected_indicator</item>
+        <item name="unselected_color">@color/unselected_indicator</item>
+        <item name="selected_width">@dimen/indicator_size</item>
+        <item name="selected_height">@dimen/indicator_size</item>
+        <item name="unselected_width">@dimen/indicator_size</item>
+        <item name="unselected_height">@dimen/indicator_size</item>
     </style>
 
 </resources>
