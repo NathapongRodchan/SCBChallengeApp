@@ -1,8 +1,6 @@
 package project.nathapong.scbchallengeapp.MobileLists;
 
-import android.app.Activity;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.support.v4.app.Fragment;
@@ -15,14 +13,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
-import android.widget.RelativeLayout;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-import butterknife.BindView;
 import project.nathapong.scbchallengeapp.MobileLists.FavoriteListFragment.FavoriteListFragment;
 import project.nathapong.scbchallengeapp.MobileLists.MobileListFragment.MobileListFragment;
 import project.nathapong.scbchallengeapp.MobileLists.Model.MobileListsModel;
@@ -63,14 +59,14 @@ public class ListPresenter implements ListInterface.ActionPresenter {
                 if (response.isSuccessful() && response.body() != null) {
                     actionView.receiveDataFromApi(response.body());
                 } else {
-                    Public_Method.showErrorDialog(context);
+                    Public_Method.showErrorDialog(context, (String)context.getText(R.string.connection_error));
                 }
             }
 
             @Override
             public void onFailure(Call<List<MobileListsModel>> call, Throwable t) {
                 Public_Method.hideLoading();
-                Public_Method.showErrorDialog(context);
+                Public_Method.showErrorDialog(context, (String)context.getText(R.string.connection_error));
                 Log.d("CheckError", t.getMessage());
             }
         });

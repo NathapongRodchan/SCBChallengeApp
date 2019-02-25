@@ -12,10 +12,10 @@ public class Public_Method {
 
     private static MaterialDialog dialogLoading;
 
-    public static void showErrorDialog(Context context) {
+    public static void showErrorDialog(Context context, String message) {
         AlertDialog.Builder builder = new AlertDialog.Builder(context)
                 .setTitle(context.getText(R.string.notice))
-                .setMessage(context.getText(R.string.connection_error))
+                .setMessage(message)
                 .setPositiveButton(context.getText(R.string.ok),
                         new DialogInterface.OnClickListener() {
                             @Override

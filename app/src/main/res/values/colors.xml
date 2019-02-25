@@ -9,4 +9,7 @@
     <color name="text_white">#FFFFFF</color>
     <color name="text_white_dark">#C0C0C0</color>
     <color name="background">#ECECEC</color>
+
+    <color name="selected_indicator">#303F9F</color>
+    <color name="unselected_indicator">#FFFFFF</color>
 </resources>
