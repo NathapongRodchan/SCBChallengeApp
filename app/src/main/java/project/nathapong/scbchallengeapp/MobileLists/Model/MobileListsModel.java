@@ -3,71 +3,80 @@ package project.nathapong.scbchallengeapp.MobileLists.Model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.google.gson.annotations.SerializedName;
+
 public class MobileListsModel implements Parcelable {
 
-    private int id;
-    private String name;
-    private double rating;
-    private String thumbImageURL;
-    private String description;
-    private double price;
-    private String brand;
+    @SerializedName("thumbImageURL")
+    private String mobileImageUrl;
+    @SerializedName("brand")
+    private String mobileBrand;
+    @SerializedName("description")
+    private String mobileDescription;
+    @SerializedName("name")
+    private String mobileName;
+    @SerializedName("price")
+    private double mobilePrice;
+    @SerializedName("id")
+    private int mobileId;
+    @SerializedName("rating")
+    private double mobileRating;
     private boolean isFavorite = false;
 
-    public int getId() {
-        return id;
+    public String getMobileImageUrl() {
+        return mobileImageUrl;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setMobileImageUrl(String mobileImageUrl) {
+        this.mobileImageUrl = mobileImageUrl;
     }
 
-    public String getName() {
-        return name;
+    public String getMobileBrand() {
+        return mobileBrand;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setMobileBrand(String mobileBrand) {
+        this.mobileBrand = mobileBrand;
     }
 
-    public double getRating() {
-        return rating;
+    public String getMobileDescription() {
+        return mobileDescription;
     }
 
-    public void setRating(double rating) {
-        this.rating = rating;
+    public void setMobileDescription(String mobileDescription) {
+        this.mobileDescription = mobileDescription;
     }
 
-    public String getThumbImageURL() {
-        return thumbImageURL;
+    public String getMobileName() {
+        return mobileName;
     }
 
-    public void setThumbImageURL(String thumbImageURL) {
-        this.thumbImageURL = thumbImageURL;
+    public void setMobileName(String mobileName) {
+        this.mobileName = mobileName;
     }
 
-    public String getDescription() {
-        return description;
+    public double getMobilePrice() {
+        return mobilePrice;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setMobilePrice(double mobilePrice) {
+        this.mobilePrice = mobilePrice;
     }
 
-    public double getPrice() {
-        return price;
+    public int getMobileId() {
+        return mobileId;
     }
 
-    public void setPrice(double price) {
-        this.price = price;
+    public void setMobileId(int mobileId) {
+        this.mobileId = mobileId;
     }
 
-    public String getBrand() {
-        return brand;
+    public double getMobileRating() {
+        return mobileRating;
     }
 
-    public void setBrand(String brand) {
-        this.brand = brand;
+    public void setMobileRating(double mobileRating) {
+        this.mobileRating = mobileRating;
     }
 
     public boolean isFavorite() {
@@ -85,13 +94,13 @@ public class MobileListsModel implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeInt(this.id);
-        dest.writeString(this.name);
-        dest.writeDouble(this.rating);
-        dest.writeString(this.thumbImageURL);
-        dest.writeString(this.description);
-        dest.writeDouble(this.price);
-        dest.writeString(this.brand);
+        dest.writeString(this.mobileImageUrl);
+        dest.writeString(this.mobileBrand);
+        dest.writeString(this.mobileDescription);
+        dest.writeString(this.mobileName);
+        dest.writeDouble(this.mobilePrice);
+        dest.writeInt(this.mobileId);
+        dest.writeDouble(this.mobileRating);
         dest.writeByte(this.isFavorite ? (byte) 1 : (byte) 0);
     }
 
@@ -99,13 +108,13 @@ public class MobileListsModel implements Parcelable {
     }
 
     protected MobileListsModel(Parcel in) {
-        this.id = in.readInt();
-        this.name = in.readString();
-        this.rating = in.readDouble();
-        this.thumbImageURL = in.readString();
-        this.description = in.readString();
-        this.price = in.readDouble();
-        this.brand = in.readString();
+        this.mobileImageUrl = in.readString();
+        this.mobileBrand = in.readString();
+        this.mobileDescription = in.readString();
+        this.mobileName = in.readString();
+        this.mobilePrice = in.readDouble();
+        this.mobileId = in.readInt();
+        this.mobileRating = in.readDouble();
         this.isFavorite = in.readByte() != 0;
     }
 

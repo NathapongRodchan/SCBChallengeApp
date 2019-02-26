@@ -51,36 +51,37 @@ public class MobileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     }
 
     private void bindView(MobileListHolder mobileListsHolder){
-        mobileListsHolder.tvName.setText(allMobiles.get(mobileListsHolder.getAdapterPosition()).getName());
-        mobileListsHolder.tvDescription.setText(allMobiles.get(mobileListsHolder.getAdapterPosition()).getDescription());
-        mobileListsHolder.tvPrice.setText("" + context.getText(R.string.price) + allMobiles.get(mobileListsHolder.getAdapterPosition()).getPrice());
-        mobileListsHolder.tvRating.setText("" + context.getText(R.string.rating) + allMobiles.get(mobileListsHolder.getAdapterPosition()).getRating());
+        mobileListsHolder.tvName.setText(allMobiles.get(mobileListsHolder.getAdapterPosition()).getMobileName());
+        mobileListsHolder.tvDescription.setText(allMobiles.get(mobileListsHolder.getAdapterPosition()).getMobileDescription());
+        mobileListsHolder.tvPrice.setText("" + context.getText(R.string.price) + allMobiles.get(mobileListsHolder.getAdapterPosition()).getMobilePrice());
+        mobileListsHolder.tvRating.setText("" + context.getText(R.string.rating) + allMobiles.get(mobileListsHolder.getAdapterPosition()).getMobileRating());
         mobileListsHolder.ivFavorite.setImageResource(allMobiles.get(mobileListsHolder.getAdapterPosition()).isFavorite() ? R.drawable.ic_favorite : R.drawable.ic_no_favorite);
-        Glide.with(context).load(allMobiles.get(mobileListsHolder.getAdapterPosition()).getThumbImageURL()).into(mobileListsHolder.ivImage);
+        Glide.with(context).load(allMobiles.get(mobileListsHolder.getAdapterPosition()).getMobileImageUrl()).into(mobileListsHolder.ivImage);
     }
 
     public void addFavorites(int position){
         List<MobileListsModel> allFavorites = Sessions.readFavoriteLists();
         allFavorites.add(allMobiles.get(position));
         allFavorites.get(allFavorites.size()-1).setFavorite(true);
-        Collections.sort(allFavorites, new Comparator<MobileListsModel>() {
-            @Override
-            public int compare(MobileListsModel list1, MobileListsModel list2) {
-                return Integer.compare(list1.getId(),list2.getId());
-            }
-        });
+
+        //Sort by options
         if (TextUtils.isEmpty(Public_Variables.optionName)) {
-            Sessions.saveFavoriteLists(allFavorites);
+            Collections.sort(allFavorites, new Comparator<MobileListsModel>() {
+                @Override
+                public int compare(MobileListsModel list1, MobileListsModel list2) {
+                    return Integer.compare(list1.getMobileId(),list2.getMobileId());
+                }
+            });
         }else {
             Collections.sort(allFavorites, new Comparator<MobileListsModel>() {
                 @Override
                 public int compare(MobileListsModel list1, MobileListsModel list2) {
                     if (Public_Variables.optionName.equals(Constants.LOW_TO_HIGH)){
-                        return Double.compare(list1.getPrice(),list2.getPrice());
+                        return Double.compare(list1.getMobilePrice(),list2.getMobilePrice());
                     }else if (Public_Variables.optionName.equals(Constants.HIGH_TO_LOW)){
-                        return Double.compare(list2.getPrice(),list1.getPrice());
+                        return Double.compare(list2.getMobilePrice(),list1.getMobilePrice());
                     }else {
-                        return Double.compare(list2.getRating(),list1.getRating());
+                        return Double.compare(list2.getMobileRating(),list1.getMobileRating());
                     }
                 }
             });
@@ -93,7 +94,7 @@ public class MobileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     public void removeFavorites(int position){
         List<MobileListsModel> allFavorites = Sessions.readFavoriteLists();
         for (int i = 0; i < allFavorites.size(); i++){
-            if (allFavorites.get(i).getId() == allMobiles.get(position).getId()){
+            if (allFavorites.get(i).getMobileId() == allMobiles.get(position).getMobileId()){
                 allFavorites.remove(i);
                 break;
             }
@@ -106,7 +107,7 @@ public class MobileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     public void deleteFavorites(int position){
         List<MobileListsModel> allFavorites = Sessions.readFavoriteLists();
         for (int i = 0; i < allFavorites.size(); i++){
-            if (allFavorites.get(i).getId() == allMobiles.get(position).getId()){
+            if (allFavorites.get(i).getMobileId() == allMobiles.get(position).getMobileId()){
                 allFavorites.remove(i);
                 break;
             }

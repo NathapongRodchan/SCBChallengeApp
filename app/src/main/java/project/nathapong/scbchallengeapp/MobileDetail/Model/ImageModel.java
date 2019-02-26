@@ -1,32 +1,37 @@
 package project.nathapong.scbchallengeapp.MobileDetail.Model;
 
+import com.google.gson.annotations.SerializedName;
+
 public class ImageModel {
 
-    private String url;
-    private int id;
-    private int mobile_id;
+    @SerializedName("mobile_id")
+    private int mobileId;
+    @SerializedName("url")
+    private String mobileImageUrl;
+    @SerializedName("id")
+    private int imageId;
 
-    public String getUrl() {
-        return url;
+    public int getMobileId() {
+        return mobileId;
     }
 
-    public void setUrl(String url) {
-        this.url = url;
+    public void setMobileId(int mobileId) {
+        this.mobileId = mobileId;
     }
 
-    public int getId() {
-        return id;
+    public String getMobileImageUrl() {
+        return mobileImageUrl;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setMobileImageUrl(String mobileImageUrl) {
+        this.mobileImageUrl = mobileImageUrl;
     }
 
-    public int getMobile_id() {
-        return mobile_id;
+    public int getImageId() {
+        return imageId;
     }
 
-    public void setMobile_id(int mobile_id) {
-        this.mobile_id = mobile_id;
+    public void setImageId(int imageId) {
+        this.imageId = imageId;
     }
 }
