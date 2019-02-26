@@ -8,10 +8,10 @@ public interface MobileListInterface {
 
     interface ActionView{
         void initView();
-        void setMobileLists();
+        void setMobileLists(List<MobileListsModel> allMobiles);
     }
 
     interface ActionPresenter{
-        void checkFavorites(List<MobileListsModel> allMobiles);
+        List<MobileListsModel> checkFavorites(List<MobileListsModel> allMobiles, List<MobileListsModel> allFavorites);
     }
 }

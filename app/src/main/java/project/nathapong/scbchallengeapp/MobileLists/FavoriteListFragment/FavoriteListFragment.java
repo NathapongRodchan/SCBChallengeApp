@@ -1,7 +1,6 @@
 package project.nathapong.scbchallengeapp.MobileLists.FavoriteListFragment;
 
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -20,15 +19,13 @@ import project.nathapong.scbchallengeapp.MobileLists.Adapter.MobileListAdapter;
 import project.nathapong.scbchallengeapp.MobileLists.Adapter.SwipeToDeleteCallBack;
 import project.nathapong.scbchallengeapp.MobileLists.Model.MobileListsModel;
 import project.nathapong.scbchallengeapp.R;
-import project.nathapong.scbchallengeapp.Utilities.Constants;
-import project.nathapong.scbchallengeapp.Utilities.Sessions;
 
 public class FavoriteListFragment extends Fragment implements FavoriteListInterface.ActionView {
 
     @BindView(R.id.rvFavoriteLists) RecyclerView rvFavoriteLists;
     Unbinder unbinder;
     private FavoriteListInterface.ActionPresenter actionPresenter;
-    private List<MobileListsModel> allFavorites;
+
     private MobileListAdapter mobileListAdapter;
 
     @Override
@@ -42,14 +39,10 @@ public class FavoriteListFragment extends Fragment implements FavoriteListInterf
     @Override
     public void initView() {
         actionPresenter = new FavoriteListPresenter(this);
-        allFavorites = Sessions.readFavoriteLists();
-        if (allFavorites != null && allFavorites.size() > 0){
-            setFavoriteLists();
-        }
     }
 
     @Override
-    public void setFavoriteLists() {
+    public void setFavoriteLists(List<MobileListsModel> allFavorites) {
         AdapterListener adapterListener = new AdapterListener() {
             @Override
             public void onFavoriteClick(int position) {

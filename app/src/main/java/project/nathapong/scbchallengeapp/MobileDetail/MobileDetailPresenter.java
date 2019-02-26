@@ -50,7 +50,6 @@ public class MobileDetailPresenter implements MobileDetailInterface.ActionPresen
                     }else {
                         Public_Method.showErrorDialog(context, (String)context.getText(R.string.connection_error));
                     }
-
                 }
             }
 

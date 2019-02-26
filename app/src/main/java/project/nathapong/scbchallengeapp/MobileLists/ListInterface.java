@@ -10,11 +10,11 @@ public interface ListInterface {
 
     interface ActionView{
         void setEvent();
-        void receiveDataFromApi(List<MobileListsModel> mobileLists);
-        void callSortData(String option);
+        void setHighlight(String tabName);
     }
 
     interface ActionPresenter{
+        void checkCurrentTab(String tabName);
         Fragment getCurrentFragment();
         void getMobileLists();
         void showMobileLists(List<MobileListsModel> allMobiles);
@@ -22,8 +22,8 @@ public interface ListInterface {
         void replaceFragment(Fragment fragment);
         void removeFragment();
         void showOptions();
-        void sortDataLowToHigh(List<MobileListsModel> allMobiles);
-        void sortDataHighToLow(List<MobileListsModel> allMobiles);
-        void sortDataByRating(List<MobileListsModel> allMobiles);
+        List<MobileListsModel> sortData(List<MobileListsModel> allMobiles, String options);
+        void sortDataFavorites(String options);
+        void refreshTabAfterOptionIsSelected();
     }
 }

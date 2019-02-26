@@ -1,6 +1,5 @@
 package project.nathapong.scbchallengeapp.MobileLists.FavoriteListFragment;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import project.nathapong.scbchallengeapp.MobileLists.Model.MobileListsModel;
@@ -12,6 +11,14 @@ public class FavoriteListPresenter implements FavoriteListInterface.ActionPresen
 
     public FavoriteListPresenter(FavoriteListInterface.ActionView actionView) {
         this.actionView = actionView;
+        getFavoriteLists();
     }
 
+    @Override
+    public void getFavoriteLists() {
+        List<MobileListsModel> allFavorites = Sessions.readFavoriteLists();
+        if (allFavorites != null && allFavorites.size() > 0){
+            actionView.setFavoriteLists(allFavorites);
+        }
+    }
 }

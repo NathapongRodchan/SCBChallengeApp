@@ -23,6 +23,17 @@ public class MobileListsModel implements Parcelable {
     private double mobileRating;
     private boolean isFavorite = false;
 
+    public MobileListsModel(String mobileImageUrl, String mobileBrand, String mobileDescription, String mobileName, double mobilePrice, int mobileId, double mobileRating, boolean isFavorite) {
+        this.mobileImageUrl = mobileImageUrl;
+        this.mobileBrand = mobileBrand;
+        this.mobileDescription = mobileDescription;
+        this.mobileName = mobileName;
+        this.mobilePrice = mobilePrice;
+        this.mobileId = mobileId;
+        this.mobileRating = mobileRating;
+        this.isFavorite = isFavorite;
+    }
+
     public String getMobileImageUrl() {
         return mobileImageUrl;
     }
@@ -102,9 +113,6 @@ public class MobileListsModel implements Parcelable {
         dest.writeInt(this.mobileId);
         dest.writeDouble(this.mobileRating);
         dest.writeByte(this.isFavorite ? (byte) 1 : (byte) 0);
-    }
-
-    public MobileListsModel() {
     }
 
     protected MobileListsModel(Parcel in) {
