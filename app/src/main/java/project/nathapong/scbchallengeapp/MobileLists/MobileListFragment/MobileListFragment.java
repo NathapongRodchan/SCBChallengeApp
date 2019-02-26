@@ -18,13 +18,14 @@ import project.nathapong.scbchallengeapp.MobileLists.Adapter.MobileListAdapter;
 import project.nathapong.scbchallengeapp.MobileLists.Model.MobileListsModel;
 import project.nathapong.scbchallengeapp.R;
 import project.nathapong.scbchallengeapp.Utilities.Constants;
+import project.nathapong.scbchallengeapp.Utilities.Sessions;
 
 public class MobileListFragment extends Fragment implements MobileListInterface.ActionView {
 
     @BindView(R.id.rvMobileLists) RecyclerView rvMobileLists;
     Unbinder unbinder;
+
     private MobileListInterface.ActionPresenter actionPresenter;
-    private List<MobileListsModel> allMobiles;
     private MobileListAdapter mobileListAdapter;
 
     @Override
@@ -37,16 +38,13 @@ public class MobileListFragment extends Fragment implements MobileListInterface.
 
     @Override
     public void initView() {
-        actionPresenter = new MobileListPresenter(this);
-        allMobiles = getArguments().getParcelableArrayList(Constants.MOBILE_KEY);
-        if (allMobiles != null && allMobiles.size() > 0){
-            actionPresenter.checkFavorites(allMobiles);
-            setMobileLists();
-        }
+        List<MobileListsModel> allMobiles = getArguments().getParcelableArrayList(Constants.MOBILE_KEY);
+        if (allMobiles != null && allMobiles.size() > 0)
+            actionPresenter = new MobileListPresenter(this, allMobiles, Sessions.readFavoriteLists());
     }
 
     @Override
-    public void setMobileLists() {
+    public void setMobileLists(final List<MobileListsModel> allMobiles) {
         AdapterListener adapterListener = new AdapterListener() {
             @Override
             public void onFavoriteClick(int position) {

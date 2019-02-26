@@ -8,14 +8,9 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import java.util.List;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import io.paperdb.Paper;
-import project.nathapong.scbchallengeapp.MobileLists.FavoriteListFragment.FavoriteListFragment;
-import project.nathapong.scbchallengeapp.MobileLists.MobileListFragment.MobileListFragment;
-import project.nathapong.scbchallengeapp.MobileLists.Model.MobileListsModel;
 import project.nathapong.scbchallengeapp.R;
 import project.nathapong.scbchallengeapp.Utilities.Constants;
 import project.nathapong.scbchallengeapp.Utilities.Public_Variables;
@@ -28,7 +23,6 @@ public class ListActivity extends AppCompatActivity implements ListInterface.Act
     @BindView(R.id.flList) FrameLayout flList;
 
     private ListInterface.ActionPresenter actionPresenter;
-    private List<MobileListsModel> allMobiles;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,25 +42,15 @@ public class ListActivity extends AppCompatActivity implements ListInterface.Act
     }
 
     @Override
-    public void receiveDataFromApi(List<MobileListsModel> mobileLists) {
-        if (mobileLists != null && mobileLists.size() > 0){
-            allMobiles = mobileLists;
-            setEvent();
-            actionPresenter.showMobileLists(allMobiles);
-        }
-    }
-
-    @Override
-    public void callSortData(String option) {
-        switch (option){
-            case Constants.LOW_TO_HIGH:
-                actionPresenter.sortDataLowToHigh(allMobiles);
+    public void setHighlight(String tabName) {
+        switch (tabName){
+            case Constants.TAB_MOBILE:
+                tvMobileList.setTextColor(ContextCompat.getColor(this,R.color.text_white));
+                tvFavorites.setTextColor(ContextCompat.getColor(this,R.color.text_white_dark));
                 break;
-            case Constants.HIGH_TO_LOW:
-                actionPresenter.sortDataHighToLow(allMobiles);
-                break;
-            case Constants.RATING:
-                actionPresenter.sortDataByRating(allMobiles);
+            case Constants.TAB_FAVORITE:
+                tvFavorites.setTextColor(ContextCompat.getColor(this,R.color.text_white));
+                tvMobileList.setTextColor(ContextCompat.getColor(this,R.color.text_white_dark));
                 break;
         }
     }
@@ -78,18 +62,10 @@ public class ListActivity extends AppCompatActivity implements ListInterface.Act
                 actionPresenter.showOptions();
                 break;
             case R.id.tvMobileList:
-                if (!(actionPresenter.getCurrentFragment() instanceof MobileListFragment)){
-                    actionPresenter.showMobileLists(allMobiles);
-                    tvMobileList.setTextColor(ContextCompat.getColor(this,R.color.text_white));
-                    tvFavorites.setTextColor(ContextCompat.getColor(this,R.color.text_white_dark));
-                }
+                actionPresenter.checkCurrentTab(Constants.TAB_MOBILE);
                 break;
             case R.id.tvFavorites:
-                if (!(actionPresenter.getCurrentFragment() instanceof FavoriteListFragment)){
-                    actionPresenter.showFavoriteLists();
-                    tvFavorites.setTextColor(ContextCompat.getColor(this,R.color.text_white));
-                    tvMobileList.setTextColor(ContextCompat.getColor(this,R.color.text_white_dark));
-                }
+                actionPresenter.checkCurrentTab(Constants.TAB_FAVORITE);
                 break;
         }
     }

@@ -8,10 +8,10 @@ public interface FavoriteListInterface {
 
     interface ActionView{
         void initView();
-        void setFavoriteLists();
+        void setFavoriteLists(List<MobileListsModel> allFavorites);
     }
 
     interface ActionPresenter{
-
+        void getFavoriteLists();
     }
 }

@@ -36,10 +36,21 @@ public class ListPresenter implements ListInterface.ActionPresenter {
 
     private ListInterface.ActionView actionView;
     private Context context;
+    private List<MobileListsModel> allMobiles;
 
     public ListPresenter(ListInterface.ActionView actionView, Context context) {
         this.actionView = actionView;
         this.context = context;
+    }
+
+    @Override
+    public void checkCurrentTab(String tabName) {
+        if (!(getCurrentFragment() instanceof MobileListFragment) && tabName.equals(Constants.TAB_MOBILE)){
+            showMobileLists(allMobiles);
+        }
+        else if (!(getCurrentFragment() instanceof FavoriteListFragment) && tabName.equals(Constants.TAB_FAVORITE)){
+            showFavoriteLists();
+        }
     }
 
     @Override
@@ -57,7 +68,9 @@ public class ListPresenter implements ListInterface.ActionPresenter {
             public void onResponse(Call<List<MobileListsModel>> call, Response<List<MobileListsModel>> response) {
                 Public_Method.hideLoading();
                 if (response.isSuccessful() && response.body() != null) {
-                    actionView.receiveDataFromApi(response.body());
+                    allMobiles = response.body();
+                    showMobileLists(allMobiles);
+                    actionView.setEvent();
                 } else {
                     Public_Method.showErrorDialog(context, (String)context.getText(R.string.connection_error));
                 }
@@ -74,6 +87,7 @@ public class ListPresenter implements ListInterface.ActionPresenter {
 
     @Override
     public void showMobileLists(List<MobileListsModel> allMobiles) {
+        actionView.setHighlight(Constants.TAB_MOBILE);
         removeFragment();
         Fragment fragment = new MobileListFragment();
         Bundle bundle = new Bundle();
@@ -84,6 +98,7 @@ public class ListPresenter implements ListInterface.ActionPresenter {
 
     @Override
     public void showFavoriteLists() {
+        actionView.setHighlight(Constants.TAB_FAVORITE);
         removeFragment();
         replaceFragment(new FavoriteListFragment());
     }
@@ -134,101 +149,60 @@ public class ListPresenter implements ListInterface.ActionPresenter {
             public void onCheckedChanged(RadioGroup radioGroup, int checkedId) {
                 switch (checkedId){
                     case R.id.rbLowToHigh:
-                        actionView.callSortData(Constants.LOW_TO_HIGH);
+                        allMobiles = sortData(allMobiles,Constants.LOW_TO_HIGH);
+                        sortDataFavorites(Constants.LOW_TO_HIGH);
                         Public_Variables.optionName = Constants.LOW_TO_HIGH;
-                        optionsDialog.dismiss();
                         break;
                     case R.id.rbHighToLow:
-                        actionView.callSortData(Constants.HIGH_TO_LOW);
+                        allMobiles = sortData(allMobiles,Constants.HIGH_TO_LOW);
+                        sortDataFavorites(Constants.HIGH_TO_LOW);
                         Public_Variables.optionName = Constants.HIGH_TO_LOW;
-                        optionsDialog.dismiss();
                         break;
                     case R.id.rbRating:
-                        actionView.callSortData(Constants.RATING);
+                        allMobiles = sortData(allMobiles,Constants.RATING);
+                        sortDataFavorites(Constants.RATING);
                         Public_Variables.optionName = Constants.RATING;
-                        optionsDialog.dismiss();
                         break;
                 }
+                refreshTabAfterOptionIsSelected();
+                optionsDialog.dismiss();
             }
         });
     }
 
     @Override
-    public void sortDataLowToHigh(List<MobileListsModel> allMobiles) {
-        // Mobiles
-        Collections.sort(allMobiles, new Comparator<MobileListsModel>() {
-            @Override
-            public int compare(MobileListsModel list1, MobileListsModel list2) {
-                return Double.compare(list1.getMobilePrice(),list2.getMobilePrice());
-            }
-        });
-
-        // Favorites
-        List<MobileListsModel> allFavorites = Sessions.readFavoriteLists();
-        Collections.sort(allFavorites, new Comparator<MobileListsModel>() {
-            @Override
-            public int compare(MobileListsModel list1, MobileListsModel list2) {
-                return Double.compare(list1.getMobilePrice(),list2.getMobilePrice());
-            }
-        });
-        Sessions.saveFavoriteLists(allFavorites);
-
-        if (getCurrentFragment() instanceof MobileListFragment)
-            showMobileLists(allMobiles);
-        else if (getCurrentFragment() instanceof FavoriteListFragment)
-            showFavoriteLists();
+    public List<MobileListsModel> sortData(List<MobileListsModel> allMobiles, final String options) {
+        if (allMobiles != null && allMobiles.size() > 0){
+            Collections.sort(allMobiles, new Comparator<MobileListsModel>() {
+                @Override
+                public int compare(MobileListsModel list1, MobileListsModel list2) {
+                    switch (options){
+                        case Constants.LOW_TO_HIGH:
+                            return Double.compare(list1.getMobilePrice(),list2.getMobilePrice());
+                        case Constants.HIGH_TO_LOW:
+                            return Double.compare(list2.getMobilePrice(),list1.getMobilePrice());
+                        case Constants.RATING:
+                            return Double.compare(list2.getMobileRating(),list1.getMobileRating());
+                        default:
+                            return Double.compare(list1.getMobileId(),list2.getMobileId());
+                    }
+                }
+            });
+        }
+        return allMobiles;
     }
 
     @Override
-    public void sortDataHighToLow(List<MobileListsModel> allMobiles) {
-        // Mobiles
-        Collections.sort(allMobiles, new Comparator<MobileListsModel>() {
-            @Override
-            public int compare(MobileListsModel list1, MobileListsModel list2) {
-                return Double.compare(list2.getMobilePrice(),list1.getMobilePrice());
-            }
-        });
-
-        // Favorites
-        List<MobileListsModel> allFavorites = Sessions.readFavoriteLists();
-        Collections.sort(allFavorites, new Comparator<MobileListsModel>() {
-            @Override
-            public int compare(MobileListsModel list1, MobileListsModel list2) {
-                return Double.compare(list2.getMobilePrice(),list1.getMobilePrice());
-            }
-        });
+    public void sortDataFavorites(final String options) {
+        List<MobileListsModel> allFavorites = sortData(Sessions.readFavoriteLists(), options);
         Sessions.saveFavoriteLists(allFavorites);
-
-        if (getCurrentFragment() instanceof MobileListFragment)
-            showMobileLists(allMobiles);
-        else if (getCurrentFragment() instanceof FavoriteListFragment)
-            showFavoriteLists();
     }
 
     @Override
-    public void sortDataByRating(List<MobileListsModel> allMobiles) {
-        // Mobiles
-        Collections.sort(allMobiles, new Comparator<MobileListsModel>() {
-            @Override
-            public int compare(MobileListsModel list1, MobileListsModel list2) {
-                return Double.compare(list2.getMobileRating(),list1.getMobileRating());
-            }
-        });
-
-        // Favorites
-        List<MobileListsModel> allFavorites = Sessions.readFavoriteLists();
-        Collections.sort(allFavorites, new Comparator<MobileListsModel>() {
-            @Override
-            public int compare(MobileListsModel list1, MobileListsModel list2) {
-                return Double.compare(list2.getMobileRating(),list1.getMobileRating());
-            }
-        });
-        Sessions.saveFavoriteLists(allFavorites);
-
-        if (getCurrentFragment() instanceof MobileListFragment)
+    public void refreshTabAfterOptionIsSelected() {
+        if ((getCurrentFragment() instanceof MobileListFragment))
             showMobileLists(allMobiles);
-        else if (getCurrentFragment() instanceof FavoriteListFragment)
+        else if ((getCurrentFragment() instanceof FavoriteListFragment))
             showFavoriteLists();
-
     }
 }

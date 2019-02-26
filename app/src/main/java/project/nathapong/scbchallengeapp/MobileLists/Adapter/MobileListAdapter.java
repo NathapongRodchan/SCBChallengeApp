@@ -40,9 +40,9 @@ public class MobileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     }
 
     @Override
-    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, int i) {
+    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, int position) {
         MobileListHolder mobileListsHolder = (MobileListHolder)viewHolder;
-        bindView(mobileListsHolder);
+        bindView(mobileListsHolder, position);
     }
 
     @Override
@@ -50,13 +50,13 @@ public class MobileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         return allMobiles.size();
     }
 
-    private void bindView(MobileListHolder mobileListsHolder){
-        mobileListsHolder.tvName.setText(allMobiles.get(mobileListsHolder.getAdapterPosition()).getMobileName());
-        mobileListsHolder.tvDescription.setText(allMobiles.get(mobileListsHolder.getAdapterPosition()).getMobileDescription());
-        mobileListsHolder.tvPrice.setText("" + context.getText(R.string.price) + allMobiles.get(mobileListsHolder.getAdapterPosition()).getMobilePrice());
-        mobileListsHolder.tvRating.setText("" + context.getText(R.string.rating) + allMobiles.get(mobileListsHolder.getAdapterPosition()).getMobileRating());
-        mobileListsHolder.ivFavorite.setImageResource(allMobiles.get(mobileListsHolder.getAdapterPosition()).isFavorite() ? R.drawable.ic_favorite : R.drawable.ic_no_favorite);
-        Glide.with(context).load(allMobiles.get(mobileListsHolder.getAdapterPosition()).getMobileImageUrl()).into(mobileListsHolder.ivImage);
+    private void bindView(MobileListHolder mobileListsHolder, int position){
+        mobileListsHolder.tvName.setText(allMobiles.get(position).getMobileName());
+        mobileListsHolder.tvDescription.setText(allMobiles.get(position).getMobileDescription());
+        mobileListsHolder.tvPrice.setText("" + context.getText(R.string.price) + allMobiles.get(position).getMobilePrice());
+        mobileListsHolder.tvRating.setText("" + context.getText(R.string.rating) + allMobiles.get(position).getMobileRating());
+        mobileListsHolder.ivFavorite.setImageResource(allMobiles.get(position).isFavorite() ? R.drawable.ic_favorite : R.drawable.ic_no_favorite);
+        Glide.with(context).load(allMobiles.get(position).getMobileImageUrl()).into(mobileListsHolder.ivImage);
     }
 
     public void addFavorites(int position){
@@ -64,7 +64,7 @@ public class MobileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         allFavorites.add(allMobiles.get(position));
         allFavorites.get(allFavorites.size()-1).setFavorite(true);
 
-        //Sort by options
+        //Sort by ID
         if (TextUtils.isEmpty(Public_Variables.optionName)) {
             Collections.sort(allFavorites, new Comparator<MobileListsModel>() {
                 @Override
@@ -72,7 +72,8 @@ public class MobileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                     return Integer.compare(list1.getMobileId(),list2.getMobileId());
                 }
             });
-        }else {
+        } //Sort by options
+        else {
             Collections.sort(allFavorites, new Comparator<MobileListsModel>() {
                 @Override
                 public int compare(MobileListsModel list1, MobileListsModel list2) {
@@ -85,8 +86,8 @@ public class MobileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                     }
                 }
             });
-            Sessions.saveFavoriteLists(allFavorites);
         }
+        Sessions.saveFavoriteLists(allFavorites);
         allMobiles.get(position).setFavorite(true);
         notifyItemChanged(position);
     }
