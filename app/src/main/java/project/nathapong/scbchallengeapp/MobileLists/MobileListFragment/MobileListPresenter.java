@@ -24,7 +24,7 @@ public class MobileListPresenter implements MobileListInterface.ActionPresenter{
         for (int i = 0; i < allMobiles.size(); i++){
             allMobiles.get(i).setFavorite(false);
             for (MobileListsModel list : allFavorites){
-                if (allMobiles.get(i).getId() == list.getId()){
+                if (allMobiles.get(i).getMobileId() == list.getMobileId()){
                     allMobiles.get(i).setFavorite(true);
                     break;
                 }

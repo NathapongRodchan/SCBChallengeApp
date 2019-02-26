@@ -1,23 +1,27 @@
 package project.nathapong.scbchallengeapp.MobileDetail.Model;
 
+import com.google.gson.annotations.SerializedName;
+
 public class ResponseMessageModel {
 
-    private String reason;
-    private boolean error;
+    @SerializedName("error")
+    private boolean hasError;
+    @SerializedName("reason")
+    private String errorMessage;
 
-    public String getReason() {
-        return reason;
+    public boolean isHasError() {
+        return hasError;
     }
 
-    public void setReason(String reason) {
-        this.reason = reason;
+    public void setHasError(boolean hasError) {
+        this.hasError = hasError;
     }
 
-    public boolean isError() {
-        return error;
+    public String getErrorMessage() {
+        return errorMessage;
     }
 
-    public void setError(boolean error) {
-        this.error = error;
+    public void setErrorMessage(String errorMessage) {
+        this.errorMessage = errorMessage;
     }
 }

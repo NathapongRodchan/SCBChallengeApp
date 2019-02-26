@@ -46,7 +46,7 @@ public class MobileDetailPresenter implements MobileDetailInterface.ActionPresen
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
-                        Public_Method.showErrorDialog(context, errorMessage.getReason());
+                        Public_Method.showErrorDialog(context, errorMessage.getErrorMessage());
                     }else {
                         Public_Method.showErrorDialog(context, (String)context.getText(R.string.connection_error));
                     }

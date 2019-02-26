@@ -159,7 +159,7 @@ public class ListPresenter implements ListInterface.ActionPresenter {
         Collections.sort(allMobiles, new Comparator<MobileListsModel>() {
             @Override
             public int compare(MobileListsModel list1, MobileListsModel list2) {
-                return Double.compare(list1.getPrice(),list2.getPrice());
+                return Double.compare(list1.getMobilePrice(),list2.getMobilePrice());
             }
         });
 
@@ -168,7 +168,7 @@ public class ListPresenter implements ListInterface.ActionPresenter {
         Collections.sort(allFavorites, new Comparator<MobileListsModel>() {
             @Override
             public int compare(MobileListsModel list1, MobileListsModel list2) {
-                return Double.compare(list1.getPrice(),list2.getPrice());
+                return Double.compare(list1.getMobilePrice(),list2.getMobilePrice());
             }
         });
         Sessions.saveFavoriteLists(allFavorites);
@@ -185,7 +185,7 @@ public class ListPresenter implements ListInterface.ActionPresenter {
         Collections.sort(allMobiles, new Comparator<MobileListsModel>() {
             @Override
             public int compare(MobileListsModel list1, MobileListsModel list2) {
-                return Double.compare(list2.getPrice(),list1.getPrice());
+                return Double.compare(list2.getMobilePrice(),list1.getMobilePrice());
             }
         });
 
@@ -194,7 +194,7 @@ public class ListPresenter implements ListInterface.ActionPresenter {
         Collections.sort(allFavorites, new Comparator<MobileListsModel>() {
             @Override
             public int compare(MobileListsModel list1, MobileListsModel list2) {
-                return Double.compare(list2.getPrice(),list1.getPrice());
+                return Double.compare(list2.getMobilePrice(),list1.getMobilePrice());
             }
         });
         Sessions.saveFavoriteLists(allFavorites);
@@ -211,7 +211,7 @@ public class ListPresenter implements ListInterface.ActionPresenter {
         Collections.sort(allMobiles, new Comparator<MobileListsModel>() {
             @Override
             public int compare(MobileListsModel list1, MobileListsModel list2) {
-                return Double.compare(list2.getRating(),list1.getRating());
+                return Double.compare(list2.getMobileRating(),list1.getMobileRating());
             }
         });
 
@@ -220,7 +220,7 @@ public class ListPresenter implements ListInterface.ActionPresenter {
         Collections.sort(allFavorites, new Comparator<MobileListsModel>() {
             @Override
             public int compare(MobileListsModel list1, MobileListsModel list2) {
-                return Double.compare(list2.getRating(),list1.getRating());
+                return Double.compare(list2.getMobileRating(),list1.getMobileRating());
             }
         });
         Sessions.saveFavoriteLists(allFavorites);

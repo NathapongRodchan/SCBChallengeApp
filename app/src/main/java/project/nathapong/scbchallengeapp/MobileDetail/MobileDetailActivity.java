@@ -49,7 +49,7 @@ public class MobileDetailActivity extends AppCompatActivity implements MobileDet
         setEvents();
         mobileDetail = getIntent().getParcelableExtra(Constants.MOBILE_DETAIL_KEY);
         if (mobileDetail != null)
-            actionPresenter.getImageLists(mobileDetail.getId()+"");
+            actionPresenter.getImageLists(mobileDetail.getMobileId()+"");
 
     }
 
@@ -63,7 +63,7 @@ public class MobileDetailActivity extends AppCompatActivity implements MobileDet
         for (int i = 0; i < allImages.size(); i++) {
             DefaultSliderView sliderView = new DefaultSliderView(this);
             sliderView
-                    .image(!TextUtils.isEmpty(allImages.get(i).getUrl()) ? allImages.get(i).getUrl() : "")
+                    .image(!TextUtils.isEmpty(allImages.get(i).getMobileImageUrl()) ? allImages.get(i).getMobileImageUrl() : "")
                     .empty(R.drawable.place_holder)
                     .setScaleType(BaseSliderView.ScaleType.CenterInside);
             sliderLayout.addSlider(sliderView);
@@ -73,10 +73,10 @@ public class MobileDetailActivity extends AppCompatActivity implements MobileDet
         sliderLayout.setCurrentPosition(0);
         sliderLayout.stopAutoCycle();
 
-        tvPrice.setText("" + getText(R.string.price) + mobileDetail.getPrice());
-        tvRating.setText("" + getText(R.string.rating) + mobileDetail.getRating());
-        tvMobileName.setText(mobileDetail.getName() + " (" + mobileDetail.getBrand() + ")");
-        tvDescription.setText(mobileDetail.getDescription());
+        tvPrice.setText("" + getText(R.string.price) + mobileDetail.getMobilePrice());
+        tvRating.setText("" + getText(R.string.rating) + mobileDetail.getMobileRating());
+        tvMobileName.setText(mobileDetail.getMobileName() + " (" + mobileDetail.getMobileBrand() + ")");
+        tvDescription.setText(mobileDetail.getMobileDescription());
     }
 
     @Override
